@@ -63,7 +63,13 @@ class Day extends Component {
       if (marking.dotColor) {
         dotStyle.push({backgroundColor: marking.dotColor});
       }
-      dot = (<View style={dotStyle}/>);
+      let dotsArray = [];
+      for (let i = 0; i < marking.length; i++) {
+        dotsArray.push(
+          <View key={i} style={[dotStyle, { marginHorizontal: 1 }]}/>
+        );
+      }
+      dot = dotsArray.length !== 0? dotsArray : (<View style={dotStyle}/>);
     }
 
     if (marking.selected) {
@@ -104,7 +110,7 @@ class Day extends Component {
         disabled={marking.disableTouchEvent}
       >
         <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
-        {dot}
+        <View style={{flexDirection: 'row'}}>{dot}</View>
       </TouchableOpacity>
     );
   }
